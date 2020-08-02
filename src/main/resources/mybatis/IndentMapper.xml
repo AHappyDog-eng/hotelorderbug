@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kuang.mapper.indentMapper">
+
+    <select id="getAll" resultType="Indent">
+    select * from indent
+    </select>
+
+    <select id="selectIndentById" resultType="Indent">
+    select * from indent where indentid = #{indentid}
+    </select>
+
+    <insert id="addIndent" parameterType="Indent">
+    insert into indent (indentid,indentroom,indentdate,indentprice,indenttel,indentremark) values (#{indentid},#{indentroom},#{indentdate},#{indentprice},#{indenttel},#{indentremark})
+    </insert>
+
+    <update id="updateIndent" parameterType="Indent">
+    update indent set indentid=#{indentid},indentroom=#{indentroom},indentdate=#{indentdate},indentprice=#{indentprice},indenttel=#{indenttel},indentremark=#{indentremark} where indentid = #{indentid}
+    </update>
+
+    <delete id="deleteIndent" parameterType="java.lang.String">
+    delete from indent where indentid = #{indentid}
+    </delete>
+    <select id="selectIndentByEmail" parameterType="java.lang.String" resultType="Indent">
+    select * from indent where indentEmail=#{indentEmail}
+    </select>
+    <select id="selectIndentSum" resultType="java.lang.Integer">
+    select sum(indentprice) from indent
+    </select>
+    <select id="selectIndentSumMouse" resultType="java.lang.Integer">
+    select sum(indentprice) from indent <![CDATA[  where indentdate>=#{pointDate} and indentdate<=#{endDate}]]>
+    </select>
+    <select id="selectIndentSumDay" resultType="java.lang.Integer">
+        select sum(indentprice) from indent where indentdate=#{day}
+    </select>
+</mapper>

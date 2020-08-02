@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kuang.mapper.personMapper">
+
+    <select id="getAll" resultType="Person">
+    select * from person
+    </select>
+
+    <select id="selectPersonById" resultType="Person">
+    select * from person where personid = #{personid}
+    </select>
+
+    <insert id="addPerson" parameterType="Person">
+    insert into person (personid,personname,personage,personsuffer,persondate,personsalary,persontel,personjob) values (#{personid},#{personname},#{personage},#{personsuffer},#{persondate},#{personsalary},#{persontel},#{personjob})
+    </insert>
+
+    <update id="updatePerson" parameterType="Person">
+    update person set personid=#{personid},personname=#{personname},personage=#{personage},personsuffer=#{personsuffer},persondate=#{persondate},personsalary=#{personsalary},persontel=#{persontel},personjob=#{personjob}  where personid = #{personid}
+    </update>
+
+    <delete id="deletePerson" parameterType="java.lang.String">
+    delete from person where personid = #{personid}
+    </delete>
+    <!--按照分类查询-->
+    <select id="seleteByclass" resultType="Person">
+    select * from person where personjob = #{personjob}
+    </select>
+    <!--查询所有分类-->
+    <select id="seleteClass" resultType="Person">
+    SELECT DISTINCT personjob FROM person
+    </select>
+</mapper>

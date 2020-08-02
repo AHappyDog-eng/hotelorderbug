@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kuang.mapper.roomMapper">
+
+    <select id="getAll" resultType="Room">
+    select * from room
+    </select>
+
+    <select id="selectRoomById" resultType="Room">
+    select * from room where roomid = #{roomid}
+    </select>
+
+    <insert id="addRoom" parameterType="Room">
+    insert into room (roomid,roomindent,roomprice,roomdetail) values (#{roomid},#{roomindent},#{roomprice},#{roomdetail})
+    </insert>
+
+    <update id="updateRoom" parameterType="Room">
+    update room set roomindent=#{roomindent},roomprice=#{roomprice},roomdetail=#{roomdetail} where roomid = #{roomid}
+    </update>
+
+    <delete id="deleteRoom" parameterType="java.lang.String">
+    delete from room where roomid = #{roomid}
+    </delete>
+    <!--连表查询-->
+    <select id="getroomOperator" resultType="roomandOperator">
+    select room.roomid,room.roomindent,operator.operatorName,operator.operatorDate from room,operator where room.roomid = operator.operatorId
+    </select>
+    <!--插入表的后两项-->
+
+    <update id="updateRoomao" parameterType="Room">
+     update room set roomprice=#{roomprice},roomdetail=#{roomdetail} where roomid = #{roomid}
+    </update>
+    <!--修改表的描述-->
+    <update id="updateIndent" parameterType="Room">
+     update room set roomindent=#{roomindent} where roomid = #{roomid}
+    </update>
+    <!--按照分类查询-->
+    <select id="seleteByclass" resultType="Room">
+    select * from room where roomindent = #{roomIndent}
+    </select>
+    <!--查询所有分类-->
+    <select id="seleteClass" resultType="Room">
+    SELECT DISTINCT roomindent FROM room
+    </select>
+</mapper>

@@ -1,0 +1,67 @@
+server:
+  port: 8080
+spring:
+  datasource:
+    url: jdbc:mysql://192.168.0.150:3306/hotelorder?serverTimezone=Asia/Shanghai
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    #spring boot Druid
+    druid:
+      dbMaster:
+        name: writea
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://localhost/hotelorder?serverTimezone=Asia/Shanghai
+        port: 3306
+        username: root
+        password: 123456
+      dbSlave1:
+        name: readonlya
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://localhost/hotelorder?serverTimezone=Asia/Shanghai
+        port: 3306
+        username: root
+        password: 123456
+      dbSlave2:
+        name: readonlyb
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://localhost/hotelorder?serverTimezone=Asia/Shanghai
+        port: 3306
+        username: root
+        password: 123456
+      initialSize: 5
+      minIdle: 5
+      maxActive: 20
+      maxWait: 60000
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: SELECT 1 FROM DUAL
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      poolPreparedStatements: true
+      filters: stat,wall,log4j
+      maxPoolPreparedStatementPerConnectionSize: 20
+      useGlobalDataSourceStat: true
+      connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
+
+  # jpa
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+
+#mybatis ����
+mybatis:
+  mapper-locations: classpath:/mybatis/*.xml
+  type-aliases-package: com.kuang.entity
+
+#  分页配置
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql
+
+
